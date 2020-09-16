@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div style="text-align: center; font-size: 170%" >
+        <h2>Reset Request Form</h2>
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <div style="color: darkred">
+                {% if form.email.errors %}
+                    <p>E-mail not registered</p>
+                {% endif %}
+            </div>
+            {{ form.email.label }} : {{ form.email }} <br> <br>
+            {{ form.submit }} <br><br>
+        </form>
+    </div> 
+{% endblock content %}

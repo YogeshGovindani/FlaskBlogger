@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div style="text-align: center; font-size: 170%" >
+        <h2>Reset Password Form</h2>
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <div style="color: darkred">
+                {% if form.password.errors %}
+                    <p>Invalid Password</p>
+                {% endif %}
+                {% if form.confirmPassword.errors %}
+                    <p>Passwords dont match</p>
+                {% endif %}
+            </div>
+            {{ form.password.label }} : {{ form.password }} <br> <br>
+            {{ form.confirmPassword.label }} : {{ form.confirmPassword }} <br> <br>
+            {{ form.submit }} <br><br>
+        </form>
+    </div> 
+{% endblock content %}

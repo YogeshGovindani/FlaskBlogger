@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="text-center" >  
+        <img src="{{ image }}" class="rounded-circle">
+        <h4 class="pt-3">{{ current_user.username }}<br>
+        <i>{{ current_user.email }}</i></h4>
+        </div>
+        <hr class="w-75">
+        <div class="text-center pt-3">
+            <h2 class="pb-3">Update Account Inforrmation</h2>
+            <form method="POST" action="", enctype="multipart/form-data" class="was-validated">
+                {{ form.hidden_tag() }}
+                <div style="color: darkred">
+                    {% if form.username.errors %}
+                        <p class="alert alert-danger">Invalid Username or Username Already Taken</p>
+                    {% endif %}
+                    {% if form.email.errors %}
+                        <p class="alert alert-danger">Invalid E-mail or E-mail Already Taken</p>
+                    {% endif %}
+                    {% if form.picture.errors %}
+                        <p class="alert alert-danger">Invalid File for Profile Picture</p>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                {{ form.username.label }} : 
+                {{ form.username }} 
+                </div>
+                <div class="form-group">
+                {{ form.email.label }} : {{ form.email }}
+                </div>
+                <div class="form-group">
+                {{ form.picture.label }} : {{ form.picture }}
+                </div>
+                {{ form.submit(class="btn btn-success") }}
+            </form> 
+        </div>
+{% endblock content %}

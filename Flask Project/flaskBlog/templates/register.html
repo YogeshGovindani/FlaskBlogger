@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="text-center" >
+        <h2>Registration Page</h2>
+        <hr class="w-25 pb-3">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <div>
+                {% if form.username.errors %}
+                    <p class="alert alert-danger">Invalid Username or Username already taken</p>
+                {% endif %}
+                {% if form.email.errors %}
+                    <p class="alert alert-danger">Invalid E-mail or E-mail already taken</p>
+                {% endif %}
+                {% if form.password.errors %}
+                    <p class="alert alert-danger">Invalid Password </p>
+                {% endif %}
+                {% if form.confirmPassword.errors %}
+                    <p class="alert alert-danger">Passwords don't match</p>
+                {% endif %}
+                
+            </div>
+            <div class="form-group">
+            {{ form.username.label }} : {{ form.username }} 
+            </div>
+            <div class="form-group">
+            {{ form.email.label }} : {{ form.email }}
+            </div>
+            <div class="form-group">
+            {{ form.password.label }} : {{ form.password }}
+            </div>
+            <div class="form-group">
+            {{ form.confirmPassword.label }} : {{ form.confirmPassword }}
+            </div>
+            <div class="form-group">
+            {{ form.submit(class="btn btn-success") }}
+            </div>
+        </form>
+        <p> Already have an Account, just <a href="{{ url_for('login') }}"> Login </a> </p>
+    </div> 
+{% endblock content %}

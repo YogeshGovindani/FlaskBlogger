@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div style="font-size: 120%" class="text-center" >
+
+        <img src="{{ url_for('static',filename='profilePics/'+post.auther.image) }}" height="120px" width="120px" class="rounded-circle">
+        <h2>{{ post['title'] }}</h2>
+        <p class="text-left" style="white-space: pre-wrap"> {{post.content}} </p>
+        <p><i>By <b><a href="{{ url_for('user', username=post.auther.username) }}" class="text-success">{{ post.auther.username }}</a></b> 
+            on <b>{{ post['date'].strftime('%Y-%m-%d %H:%M') }}</b></i></p>
+        {% if post.auther == current_user %}
+            <a href="{{url_for('postUpdate', postId=post.id)}}" class="text-success">Update</a>  or 
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#deleteModal">
+                Delete 
+            </button>
+            this Post
+            <br>
+        {% endif %}
+        <a href="{{ url_for('comment', postId=post.id) }}" class="text-success">Comment</a> on this post
+        <hr>
+        <h2>Comments</h2>
+        <hr class="w-25 pb-3">
+        {% for comment in comments %}
+            <div class="text-left">
+            <a href="{{ url_for('user', username=comment.auther.username) }}" class="text-success">{{ comment.auther.username }}</a> : 
+            <p style="white-space: pre-wrap">{{ comment['content'] }}</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="modal fade" id="deleteModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+      
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Delete Post</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+    
+            <!-- Modal body -->
+            <div class="modal-body">
+                    Are you sure you want to delete this post ?
+            </div>
+      
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <a href="{{ url_for('deletePost', postId=post.id) }}" class="text-success"> Yes&nbsp; </a>
+                <button type="button" class="btn btn-success" data-dismiss="modal"> No </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+{% endblock content %}

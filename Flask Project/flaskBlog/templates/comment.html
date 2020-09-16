@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="text-center"> 
+        <h2> Comment </h2> 
+        <hr class="w-25 pb-3">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <div style="color: darkred">
+                {% if form.comment.errors %}
+                    <p>Invalid Comment</p>
+                {% endif %}
+            </div>
+            <div class="form-group">
+            Enter your comment: {{ form.comment(class="form-control") }}
+            </div>
+            <div class="form-group">
+            {{ form.submit(class="btn btn-success") }}
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}

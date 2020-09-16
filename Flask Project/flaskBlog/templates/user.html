@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h2 class="text-center"> Posts by {{ user.username }} </h2>
+    <hr class="w-25 pb-3">
+    <div style="font-size: 120%" class="text-center">
+        {% for post in posts.items %}
+        <img src="{{ url_for('static',filename='profilePics/'+post.auther.image) }}" height="120px" width="120px" class="rounded-circle">
+        <h2> <a href="{{ url_for('post',postId=post.id )}}" class="text-success">{{ post['title'] }}</a></h2>
+        <p class="text-left" style="white-space: pre-wrap">{{ post['content'] }}</p>
+        <p><i>By <b>{{ post.auther.username }}</b> on <b>{{ post['date'].strftime('%Y-%m-%d %H:%M') }}</b></i></p>
+        <hr><br>
+        {% endfor %}
+        {% for pageNum in posts.iter_pages() %}
+            {% if pageNum %}
+                {% if pageNum == posts.page %}
+                <a href="{{ url_for('user', page=pageNum, username=user.username) }}" class="btn btn-success" >{{ pageNum }}</a>
+                {% else %}
+                <a href="{{ url_for('user', page=pageNum, username=user.username) }}" class="btn btn-outline-success">{{ pageNum }}</a>
+                {% endif %}
+            {% else %}
+                ...
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock content %}

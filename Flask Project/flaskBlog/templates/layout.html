@@ -1,0 +1,98 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <title> FlaskBlogger...</title>
+        <link rel = "icon" href = "{{ url_for('static', filename='logo.png') }}" type = "image/x-icon"> 
+    </head>
+    <body>
+        <header>
+        <div class="container-fluid pt-4">
+        <b><h1 style="font-size: 220%" > <a class="text-success" href="{{ url_for('home') }}">Flask</a><a class="text-dark" href="{{ url_for('home') }}">Blogger...</a></h1></b>     
+        </div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <!-- <a class="navbar-brand" href="#">Menu</a> -->
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+                  
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                      <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                          <a class="nav-link text-success" href="{{ url_for('home') }}">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link text-success" href="{{ url_for('about') }}">About <span class="sr-only">(current)</span></a>
+                        </li>
+                        {% if current_user.is_authenticated %}
+                        <li class="nav-item active">
+                                <a class="nav-link text-success" href="{{ url_for('newpost') }}">New Post <span class="sr-only">(current)</span></a>
+                            </li>
+                        {% endif %}
+                      </ul>
+                      <ul class="navbar-nav ml-auto">
+                            {% if current_user.is_authenticated %}
+                            <li class="nav-item active">
+                                <a class="nav-link text-success" href="{{ url_for('account') }}">{{ current_user.username }} <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item active">
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+                                    Logout
+                                </button>
+                            </li>
+                            {% else %}
+                            <li class="nav-item active">
+                                <a class="nav-link text-success" href="{{ url_for('register') }}">Register <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link text-success" href="{{ url_for('login') }}">Login <span class="sr-only">(current)</span></a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                  </nav>
+            </header>
+            <div class="modal fade" id="myModal">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                  
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                          <h4 class="modal-title">Logout</h4>
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                  
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                                Are you sure you want to Logout ?
+                        </div>
+                  
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <a class="nav-link text-success" href="{{ url_for('logout') }}">Yes <span class="sr-only">(current)</span></a>
+                            <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+        <div class="container pt-4 pb-4">
+        {% with messages = get_flashed_messages(with_categories=0) %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success text-center ">
+                        {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block content %} {% endblock %}
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    </body>
+</html>
